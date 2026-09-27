@@ -15,6 +15,7 @@ export const site = {
   tagline: 'Team & Business Coaching',
   email: 'ingvill@insch.co',
   linkedin: 'https://www.linkedin.com/in/ingvillsolbochristiansen/',
+  formspree: 'https://formspree.io/f/mppwokdw',
   legal: 'INSCH Aps CVR 38803778 © COPYRIGHT 2024. ALL RIGHTS RESERVED.',
 } as const
 

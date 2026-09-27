@@ -21,19 +21,35 @@ export function ContactSection({
   intro = "Please feel free to reach out for a conversation about unlocking your or your team's full potential. Drop me a note on LinkedIn, by mail, or in the form below.",
 }: Props) {
   const [values, setValues] = useState<Values>(empty)
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
   function update<K extends keyof Values>(key: K, value: Values[K]) {
     setValues((prev) => ({ ...prev, [key]: value }))
-    setSent(false)
+    setStatus('idle')
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    // No backend yet. Swap this for a POST to Formspree, Resend, or your own endpoint.
-    console.log('contact submission', values)
-    setValues(empty)
-    setSent(true)
+    setStatus('sending')
+    try {
+      const response = await fetch(site.formspree, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: `${values.first} ${values.last}`,
+          email: values.email,
+          message: values.comment,
+          marketingConsent: values.consent ? 'Yes' : 'No',
+          _replyto: values.email,
+          _subject: `New message from ${values.first} ${values.last}`,
+        }),
+      })
+      if (!response.ok) throw new Error(`Formspree responded ${response.status}`)
+      setValues(empty)
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -114,13 +130,19 @@ export function ContactSection({
             <label htmlFor="consent">I agree to receiving marketing and promotional materials</label>
           </div>
 
-          <button className="button" type="submit">
-            Send message
+          <button className="button" type="submit" disabled={status === 'sending'}>
+            {status === 'sending' ? 'Sending…' : 'Send message'}
           </button>
 
-          {sent ? (
+          {status === 'sent' ? (
             <p className="form-status" role="status">
               Thanks, your message is on its way. I will reply by email.
+            </p>
+          ) : null}
+          {status === 'error' ? (
+            <p className="form-status" role="alert">
+              Sorry, something went wrong. Please try again or email me at{' '}
+              <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
           ) : null}
         </form>
