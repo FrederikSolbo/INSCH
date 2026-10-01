@@ -1,35 +1,45 @@
-# React + TypeScript + Vite
+# insch.co rebuild
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Vite + React + TypeScript, React Compiler friendly (no manual memoization anywhere).
 
-Currently, two official plugins are available:
+## Install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm i react-router-dom
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Copy `index.html` and everything in `src/` over your project's versions.
+
+## Images
+
+All images are imported from `src/assets/`: `logo.png`, `ingvill.jpeg`, `coaching.png`,
+`consultancy.png`, `norwayhouse.png`, and `hero.svg`. The build fails if any of them is missing.
+That is deliberate.
+
+`hero.svg` is a placeholder gradient, because the old insch.co site (and its cherry blossom
+banner) is gone. To use a real photo, add it to `src/assets/` and change the `hero` import in
+`src/content/site.tsx`.
+
+`src/vite-env.d.ts` has to stay a `.d.ts` file. It is the only way to tell TypeScript what an
+image import resolves to.
+
+## Formspree
+
+The endpoint lives in `site.formspree` in `src/content/site.tsx`. Both subpage forms post to it
+with `Accept: application/json`, so visitors stay on the page and see a success or error message.
+
+- The first submission triggers a confirmation email from Formspree. Nothing arrives until that
+  is confirmed.
+- Each message carries a `_subject` naming the page it came from.
+- A hidden `_gotcha` field filters bots.
+- In the Formspree dashboard, restrict allowed domains to your real domain once deployed.
+
+## Routing on deploy
+
+`BrowserRouter` needs unknown paths rewritten to `index.html`.
+Netlify: add `public/_redirects` containing `/* /index.html 200`. Vercel works out of the box.
+The old Weebly URLs `/wwwinschco.html` and `/business-consultancy.html` redirect to the new ones.
+
+## Content
+
+All copy is in `src/content/site.tsx`. Pages only render it.

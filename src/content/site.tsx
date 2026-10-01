@@ -1,14 +1,18 @@
-/**
- * All copy from www.insch.co lives here so pages stay presentational.
- *
- * Images: download the originals into /public/images with these names.
- *   logo.png          https://www.insch.co/uploads/2/0/8/2/20821840/9.png
- *   ingvill.jpeg      https://www.insch.co/uploads/2/0/8/2/20821840/editor/3966b858-8c72-44c4-8446-3bc0a3364a4f-1-105-c.jpeg
- *   coaching.png      https://www.insch.co/uploads/2/0/8/2/20821840/editor/sk-rmbillede-2024-11-05-kl-17-58-14.png
- *   consultancy.png   https://www.insch.co/uploads/2/0/8/2/20821840/sk-rmbillede-2024-11-05-kl-17-58-27_orig.png
- *   norwayhouse.png   https://www.insch.co/uploads/2/0/8/2/20821840/sk-rmbillede-2024-11-05-kl-18-09-49_orig.png
- */
+import type { ReactNode } from 'react'
 
+/**
+ * All copy for the site lives here so pages stay presentational.
+ *
+ * Images are imported, not referenced by string. A string like 'src/assets/x.png'
+ * only resolves by accident in dev and breaks in production builds, because Vite
+ * never sees it. Imports get resolved, fingerprinted, and fail the build if missing.
+ */
+import logo from '../assets/logo.png'
+import hero from '../assets/hero.svg' // placeholder until a real banner photo exists
+import portrait from '../assets/ingvill.jpeg'
+import coachingBanner from '../assets/coaching.png'
+import consultancyBanner from '../assets/consultancy.png'
+import norwayHouseBanner from '../assets/norwayhouse.png'
 
 export const site = {
   name: 'INSCH Aps',
@@ -16,8 +20,10 @@ export const site = {
   email: 'ingvill@insch.co',
   linkedin: 'https://www.linkedin.com/in/ingvillsolbochristiansen/',
   formspree: 'https://formspree.io/f/mppwokdw',
-  legal: 'INSCH Aps CVR 38803778 © COPYRIGHT 2024. ALL RIGHTS RESERVED.',
+  legal: 'INSCH Aps  CVR 38803778 © COPYRIGHT 2024. ALL RIGHTS RESERVED.',
 } as const
+
+export const images = { logo, hero, portrait } as const
 
 export const nav = [
   { to: '/', label: 'Welcome' },
@@ -25,40 +31,75 @@ export const nav = [
   { to: '/business-consultancy', label: 'Business Consultancy' },
 ] as const
 
-export const home = {
-  headline: 'I coach individuals, teams and businesses to succeed in diverse and cross-cultural environments.',
+type Offering = {
+  title: string
+  body: string
+  href: string
+  image: string
+  external: boolean
+}
+
+export const home: {
+  title: string
+  subtitle: string
+  intro: string[]
+  offerings: Offering[]
+} = {
+  title: 'Team & Business Coaching',
+  subtitle:
+    'I coach individuals, teams and businesses to succeed in diverse and cross cultural environments',
   intro: [
     'My name is Ingvill Solbø Christiansen, founder of INSCH Aps.',
     'With years of international business experience and a solid academic background, I specialize in coaching individuals and teams to succeed in diverse and cross-cultural environments.',
     "A Master's in International Marketing from CBS, advanced studies in NLP, Team Coaching, and Leadership, combined with hands-on international experience, enable me to guide you and your teams to develop clear, purpose-driven strategies that align with your business goals.",
     'One of the most meaningful experiences in my career was leading the Norway House Aid Project in Cambodia, which improved education and living conditions for underprivileged children. This project underscored the importance of teamwork, particularly in environments where cultural understanding and collaboration are key.',
+    'Read more about my offerings on the pages below:',
   ],
-  cards: [
+  offerings: [
     {
       title: 'Team & Business Coaching',
       body: 'I am passionate about empowering individuals and teams to achieve desired results, especially in multicultural settings. My coaching programs focus on developing purpose-driven strategies that align with your vision, enhancing collaboration, and achieving collective success.',
       href: '/team-business-coaching',
-      image: 'src/assets/coaching.png',
+      image: coachingBanner,
       external: false,
     },
     {
       title: 'Business Consultancy',
       body: 'With extensive experience in international marketing and communication, I assist companies in developing strategies tailored to meet their business goals.',
       href: '/business-consultancy',
-      image: 'src/assets/consultancy.png',
+      image: consultancyBanner,
       external: false,
     },
     {
       title: 'Norway House',
       body: 'Norway House Cambodia is a private aid initiative that works to help the children of Cambodia achieve a better future through education.',
       href: 'http://norwayhouse.weebly.com/in-english.html',
-      image: 'src/assets/norwayhouse.png',
+      image: norwayHouseBanner,
       external: true,
     },
   ],
-} as const
+}
 
-export const coaching = {
+type CoachingTestimonial = {
+  kind: string
+  author: string
+  role: string
+  lang?: string
+  quotes: string[]
+}
+
+export const coaching: {
+  quote: { text: string; source: string }
+  pillars: { title: string; body: string }[]
+  sustainable: { title: string; body: string[]; aside: string }
+  about: {
+    title: string
+    lead: string[]
+    sections: { title: string; body: string }[]
+    closing: ReactNode
+  }
+  testimonials: CoachingTestimonial[]
+} = {
   quote: {
     text: 'If you could get all the people in an organization rowing in the same direction, you could dominate any industry, in any market, against any competition, at any time.',
     source: 'Patrick Lencioni, author of The Five Dysfunctions of a Team',
@@ -104,6 +145,16 @@ export const coaching = {
         body: "Whether you're seeking personal development or looking to strengthen your team’s cohesion, I offer coaching processes that focus on building a solid foundation for long-term success. Together, we can explore strategies that foster team chemistry and support collective growth in today’s fast-changing business environment.",
       },
     ],
+    closing: (
+      <>
+        Ready to take the next step? Connect with me on{' '}
+        <a href={site.linkedin} target="_blank" rel="noreferrer">
+          LinkedIn
+        </a>{' '}
+        or reach out via the form below to learn how I can help you and your team create sustainable
+        strategies for long-term success.
+      </>
+    ),
   },
   testimonials: [
     {
@@ -140,13 +191,25 @@ export const coaching = {
       quotes: [
         'I had the pleasure of being mentored by Ingvill as part of the CBS Mentorship Program during my master’s studies. From the start, she made me and the rest of her mentees feel heard while encouraging us to reflect on our values and aspirations. She was great at facilitating discussions among people from different career and cultural backgrounds, creating an environment where we all felt comfortable sharing our thoughts, fears, and ideas.',
         'Ingvill has an incredible ability to listen with empathy, ask the right questions, and challenge us to think critically about our goals and decisions. Her feedback was always thoughtful and constructive, helping us move forward with confidence. She also kept us accountable, ensuring we stayed focused and motivated throughout the process.',
-        'On a personal level, Ingvill brings passion, kindness, and a genuine interest in others\u2019 success in every interaction you have with her. The advice she shared with me still resonates, and I carry many of her insights with me today. Her supportive approach makes her a natural leader and coach.',
+        'On a personal level, Ingvill brings passion, kindness, and a genuine interest in others’ success in every interaction you have with her. The advice she shared with me still resonates, and I carry many of her insights with me today. Her supportive approach makes her a natural leader and coach.',
       ],
     },
   ],
-} as const
+}
 
-export const consultancy = {
+type ConsultancyTestimonial = {
+  author: string
+  role: string
+  company: { name: string; href: string }
+  quote: string
+}
+
+export const consultancy: {
+  lead: string
+  services: { title: string; body: string }[]
+  strategy: { title: string; intro: string; points: { term: string; body: string }[] }
+  testimonials: ConsultancyTestimonial[]
+} = {
   lead: 'With a broad background in marketing and communication in international businesses, I help companies develop effective marketing strategies to achieve their business objectives. You may not have the budget for a full-time marketing or communication professional, but you understand that effective communication and marketing is essential for business growth. I offer flexible solutions to help your business succeed.',
   services: [
     {
@@ -164,16 +227,14 @@ export const consultancy = {
   ],
   strategy: {
     title: 'Strategy development',
-    intro: 'Content marketing strategies and actionable plans to drive results can be developed from this. We address:',
+    intro:
+      'Content marketing strategies and actionable plans to drive results can be developed from this. We address:',
     points: [
       {
         term: 'Objectives',
         body: 'What outcomes do you want from your activities? What customer behaviors are you aiming to inspire?',
       },
-      {
-        term: 'Messaging',
-        body: 'What key messages do you want to communicate to your customers?',
-      },
+      { term: 'Messaging', body: 'What key messages do you want to communicate to your customers?' },
       {
         term: 'Vehicles',
         body: 'Which channels and platforms will best deliver your messages to your audience?',
@@ -224,4 +285,4 @@ export const consultancy = {
         'Customer testimonials play an important part in our sales process. Through Ingvill’s efforts, we now have a base of more than 100 international customer evidence stories and videos to choose from. She has helped transform the quality and reach of the customer evidence, by creating effective new communication vehicles. As a partner this is enabling us to compliment our company credibility with Microsoft product credibility, therefore furthering the likelihood of winning customers to the Microsoft platform. I respect Ingvill both as a valuable member of the Dynamics community and as a person of integrity with genuine interest in the success of those with whom she works.',
     },
   ],
-} as const
+}

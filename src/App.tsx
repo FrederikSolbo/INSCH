@@ -16,24 +16,21 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <div className="shell">
-      <a className="skip" href="#main">
-        Skip to content
-      </a>
+    <>
       <ScrollToTop />
       <SiteHeader />
-      <main id="main">
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/team-business-coaching" element={<Coaching />} />
           <Route path="/business-consultancy" element={<Consultancy />} />
-          {/* keep the old Weebly URLs working */}
+          {/* Old Weebly URLs, so existing links and search results keep working */}
           <Route path="/wwwinschco.html" element={<Navigate to="/team-business-coaching" replace />} />
           <Route path="/business-consultancy.html" element={<Navigate to="/business-consultancy" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <SiteFooter />
-    </div>
+    </>
   )
 }

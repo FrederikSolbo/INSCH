@@ -1,48 +1,45 @@
 import { useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
-import { nav, site } from '../content/site'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { images, nav, site } from '../content/site'
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
-  const location = useLocation()
+  const { pathname } = useLocation()
 
-  // close the mobile drawer whenever the route changes
-  const [lastPath, setLastPath] = useState(location.pathname)
-  if (lastPath !== location.pathname) {
-    setLastPath(location.pathname)
+  // Close the mobile menu on navigation (derived-state pattern, no effect needed).
+  const [lastPath, setLastPath] = useState(pathname)
+  if (lastPath !== pathname) {
+    setLastPath(pathname)
     setOpen(false)
   }
 
   return (
-    <header className="masthead">
-      <div className="wrap masthead__inner">
-        <NavLink to="/" className="brand">
-          <span className="brand__mark">INSCH</span>
-          <span className="brand__sub">{site.tagline}</span>
-        </NavLink>
+    <header className="site-header">
+      <div className="site-header__inner">
+        <Link to="/" className="site-header__logo" aria-label={`${site.name} home`}>
+          <img src={images.logo} alt={`INSCH, ${site.tagline}`} />
+        </Link>
 
-        <button
-          type="button"
-          className="nav-toggle"
-          aria-expanded={open}
-          aria-controls="primary-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? 'Close' : 'Menu'}
-        </button>
-
-        <nav id="primary-nav" className={open ? 'nav is-open' : 'nav'} aria-label="Primary">
+        <nav id="site-nav" className={open ? 'site-nav open' : 'site-nav'} aria-label="Primary">
           {nav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) => (isActive ? 'is-active' : undefined)}
-              end={item.to === '/'}
-            >
+            <NavLink key={item.to} to={item.to} end={item.to === '/'}>
               {item.label}
             </NavLink>
           ))}
         </nav>
+
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="site-nav"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
     </header>
   )
