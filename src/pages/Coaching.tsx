@@ -1,11 +1,11 @@
-import { coaching } from '../content/site'
+import { coaching, images } from '../content/site'
 import { PageHero } from '../components/PageHero'
 import { ContactForm } from '../components/ContactForm'
 
 export default function Coaching() {
   return (
     <>
-      <PageHero title="Team & Business Coaching" />
+      <PageHero title="Team & Business Coaching" image={images.hero.coaching} />
 
       <section className="band band--dark">
         <div className="container">

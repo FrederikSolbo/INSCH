@@ -6,7 +6,7 @@ import { ContactCta } from '../components/ContactCta'
 export default function Home() {
   return (
     <>
-      <PageHero title="Welcome" />
+      <PageHero title="Welcome" image={images.hero.home} />
 
       <section className="band band--dark">
         <div className="container">
@@ -31,7 +31,7 @@ export default function Home() {
               <h2>{item.title}</h2>
               {item.external ? (
                 <>
-                  <p>{item.body} Read more:</p>
+                  <p>{item.body}</p>
                   <a href={item.href} target="_blank" rel="noreferrer">
                     <img className="offering__image" src={item.image} alt={item.title} />
                   </a>
@@ -39,7 +39,7 @@ export default function Home() {
               ) : (
                 <>
                   <p>
-                    {item.body} Read more <Link to={item.href}>here</Link>.
+                    {item.body}
                   </p>
                   <Link to={item.href}>
                     <img className="offering__image" src={item.image} alt={item.title} />

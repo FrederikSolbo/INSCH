@@ -8,7 +8,9 @@ import type { ReactNode } from 'react'
  * never sees it. Imports get resolved, fingerprinted, and fail the build if missing.
  */
 import logo from '../assets/logo.png'
-import hero from '../assets/hero.svg' // placeholder until a real banner photo exists
+import heroHome from '../assets/hero-home.jpg'
+import heroCoaching from '../assets/hero-coaching.jpg'
+import heroConsultancy from '../assets/hero-consultancy.jpg'
 import portrait from '../assets/ingvill.jpeg'
 import coachingBanner from '../assets/coaching.png'
 import consultancyBanner from '../assets/consultancy.png'
@@ -23,7 +25,11 @@ export const site = {
   legal: 'INSCH Aps  CVR 38803778 © COPYRIGHT 2024. ALL RIGHTS RESERVED.',
 } as const
 
-export const images = { logo, hero, portrait } as const
+export const images = {
+  logo,
+  portrait,
+  hero: { home: heroHome, coaching: heroCoaching, consultancy: heroConsultancy },
+} as const
 
 export const nav = [
   { to: '/', label: 'Welcome' },

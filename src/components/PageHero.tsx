@@ -1,13 +1,12 @@
 import { useEffect } from 'react'
-import { images } from '../content/site'
 
 type Props = {
   title: string
-  image?: string
+  image: string
 }
 
 /** Full-width banner with the translucent title box, as on the live site. Also sets the tab title. */
-export function PageHero({ title, image = images.hero }: Props) {
+export function PageHero({ title, image }: Props) {
   useEffect(() => {
     document.title = `${title.toUpperCase()} | INSCH APS TEAM & BUSINESS COACHING`
   }, [title])

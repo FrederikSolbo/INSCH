@@ -1,11 +1,11 @@
-import { consultancy } from '../content/site'
+import { consultancy, images } from '../content/site'
 import { PageHero } from '../components/PageHero'
 import { ContactForm } from '../components/ContactForm'
 
 export default function Consultancy() {
   return (
     <>
-      <PageHero title="Business Consultancy" />
+      <PageHero title="Business Consultancy" image={images.hero.consultancy} />
 
       <section className="band band--dark">
         <div className="container">
