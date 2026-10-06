@@ -2,6 +2,16 @@ import { coaching, images } from '../content/site'
 import { PageHero } from '../components/PageHero'
 import { ContactForm } from '../components/ContactForm'
 
+/** Testimonials grouped by kind, in first-appearance order, one column per kind. */
+const testimonialGroups = [
+  ...coaching.testimonials
+    .reduce(
+      (groups, t) => groups.set(t.kind, [...(groups.get(t.kind) ?? []), t]),
+      new Map<string, typeof coaching.testimonials>(),
+    )
+    .entries(),
+]
+
 export default function Coaching() {
   return (
     <>
@@ -57,17 +67,24 @@ export default function Coaching() {
         <div className="container">
           <h2 className="section-title">Testimonials</h2>
           <div className="testimonials">
-            {coaching.testimonials.map((t) => (
-              <blockquote className="testimonial" key={t.author} lang={t.lang}>
-                <p className="testimonial__kind">{t.kind}</p>
-                {t.quotes.map((q) => (
-                  <p key={q}>{q}</p>
+            {testimonialGroups.map(([kind, items]) => (
+              <div className="testimonial-group" key={kind}>
+                <h3 className="testimonial__kind">{kind}</h3>
+                {items.map((t) => (
+                  <blockquote className="testimonial" key={t.author} lang={t.lang}>
+                    {t.quotes.map((q, i) => (
+                      <p key={q}>
+                        {i === 0 && '“'}
+                        {q}
+                        {i === t.quotes.length - 1 && '”'}
+                      </p>
+                    ))}
+                    <footer>
+                      {t.author}, {t.role}
+                    </footer>
+                  </blockquote>
                 ))}
-                <footer>
-                  {t.author}
-                  <span>{t.role}</span>
-                </footer>
-              </blockquote>
+              </div>
             ))}
           </div>
         </div>

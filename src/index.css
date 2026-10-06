@@ -1,7 +1,7 @@
 /* Values measured from the screen recording of the live site. */
 :root {
   --white: #fdfdfd;
-  --plum-dark: #20171c; /* dark sections */
+  --plum-dark: #271b22; /* dark sections */
   --mist: #cac8cb; /* light grey sections */
 
   --heading-on-dark: #dedbdf;
@@ -9,8 +9,7 @@
   --heading-on-light: #2a282c;
   --text-on-light: #4f4c50;
 
-  --link: #b48aa7; /* "here" links on light sections */
-  --plum-accent: #84507a; /* CTA subtitle on dark */
+  --plum-accent: #84507a; /* the site purple: accents, links, headings */
   --icon: #cfcfcf;
   --nav: #222;
   --nav-rule: #9b9b9b;
@@ -244,14 +243,14 @@ textarea:focus-visible {
 }
 
 .band--light a {
-  color: var(--link);
+  color: var(--plum-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 
 .band--dark a {
-  color: var(--link);
+  color: var(--plum-accent);
 }
 
 /* ---------------- home: intro ---------------- */
@@ -454,6 +453,32 @@ textarea:focus-visible {
 
 .testimonial {
   margin: 0;
+}
+
+.testimonial-group .testimonial + .testimonial {
+  margin-top: 36px;
+}
+
+.testimonial-group .testimonial__kind {
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.band--dark .testimonial-group .testimonial__kind {
+  color: var(--plum-accent);
+}
+
+.testimonial-group .testimonial p {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.testimonial-group .testimonial footer {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .testimonial__kind {
