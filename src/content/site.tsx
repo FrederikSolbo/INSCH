@@ -15,6 +15,19 @@ import portrait from '../assets/ingvill.jpeg'
 import coachingBanner from '../assets/coaching.png'
 import consultancyBanner from '../assets/consultancy.png'
 import norwayHouseBanner from '../assets/norwayhouse.png'
+import slide01 from '../assets/intro/slide-01.jpg'
+import slide02 from '../assets/intro/slide-02.jpg'
+import slide03 from '../assets/intro/slide-03.jpg'
+import slide04 from '../assets/intro/slide-04.jpg'
+import slide05 from '../assets/intro/slide-05.jpg'
+import slide06 from '../assets/intro/slide-06.png'
+import slide07 from '../assets/intro/slide-07.png'
+import slide08 from '../assets/intro/slide-08.png'
+import slide09 from '../assets/intro/slide-09.png'
+import slide10 from '../assets/intro/slide-10.png'
+import slide11 from '../assets/intro/slide-11.png'
+import slide12 from '../assets/intro/slide-12.png'
+import slide13 from '../assets/intro/slide-13.png'
 
 export const site = {
   name: 'INSCH Aps',
@@ -95,6 +108,7 @@ type CoachingTestimonial = {
 }
 
 export const coaching: {
+  why: string
   quote: { text: string; source: string }
   pillars: { title: string; body: string }[]
   sustainable: { title: string; body: string[]; aside: string }
@@ -102,10 +116,11 @@ export const coaching: {
     title: string
     lead: string[]
     sections: { title: string; body: string }[]
-    closing: ReactNode
+    closing: { title: string; body: ReactNode }
   }
   testimonials: CoachingTestimonial[]
 } = {
+  why: 'Why Team Coaching?',
   quote: {
     text: 'If you could get all the people in an organization rowing in the same direction, you could dominate any industry, in any market, against any competition, at any time.',
     source: 'Patrick Lencioni, author of The Five Dysfunctions of a Team',
@@ -151,16 +166,19 @@ export const coaching: {
         body: "Whether you're seeking personal development or looking to strengthen your team’s cohesion, I offer coaching processes that focus on building a solid foundation for long-term success. Together, we can explore strategies that foster team chemistry and support collective growth in today’s fast-changing business environment.",
       },
     ],
-    closing: (
-      <>
-        Ready to take the next step? Connect with me on{' '}
-        <a href={site.linkedin} target="_blank" rel="noreferrer">
-          LinkedIn
-        </a>{' '}
-        or reach out via the form below to learn how I can help you and your team create sustainable
-        strategies for long-term success.
-      </>
-    ),
+    closing: {
+      title: 'Ready to Take the Next Step?',
+      body: (
+        <>
+          Connect with me on{' '}
+          <a href={site.linkedin} target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>{' '}
+          or reach out via the form below to learn how I can help you and your team create
+          sustainable strategies for long-term success.
+        </>
+      ),
+    },
   },
   testimonials: [
     {
@@ -212,11 +230,30 @@ type ConsultancyTestimonial = {
 
 export const consultancy: {
   lead: string
+  intro: { title: string; slides: { src: string; alt: string }[] }
   services: { title: string; body: string }[]
   strategy: { title: string; intro: string; points: { term: string; body: string }[] }
   testimonials: ConsultancyTestimonial[]
 } = {
   lead: 'With a broad background in marketing and communication in international businesses, I help companies develop effective marketing strategies to achieve their business objectives. You may not have the budget for a full-time marketing or communication professional, but you understand that effective communication and marketing is essential for business growth. I offer flexible solutions to help your business succeed.',
+  intro: {
+    title: 'A brief introduction',
+    slides: [
+      { src: slide01, alt: 'Marketing & Business Coaching' },
+      { src: slide02, alt: 'Ingvill Solbø Christiansen' },
+      { src: slide03, alt: 'What I offer clients' },
+      { src: slide04, alt: 'My mission' },
+      { src: slide05, alt: 'Toolbox' },
+      { src: slide06, alt: 'Examples of work' },
+      { src: slide07, alt: 'Marketing Strategy' },
+      { src: slide08, alt: 'Content Marketing' },
+      { src: slide09, alt: 'Customer Evidence' },
+      { src: slide10, alt: 'Event Support' },
+      { src: slide11, alt: "SOME & Video's" },
+      { src: slide12, alt: 'Testimonials' },
+      { src: slide13, alt: "Let's talk business" },
+    ],
+  },
   services: [
     {
       title: 'Focus on your customers',

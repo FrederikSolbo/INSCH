@@ -19,27 +19,22 @@ export default function Coaching() {
 
       <section className="band band--dark">
         <div className="container">
+          <h2 className="why__title">{coaching.why}</h2>
           <blockquote className="pullquote">
             <p>“{coaching.quote.text}”</p>
             <footer>{coaching.quote.source}</footer>
           </blockquote>
-        </div>
-      </section>
 
-      <section className="band band--light">
-        <div className="container columns">
-          {coaching.pillars.map((pillar) => (
-            <div key={pillar.title}>
-              <h3>{pillar.title}</h3>
-              <p>{pillar.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className="columns why__pillars">
+            {coaching.pillars.map((pillar) => (
+              <div key={pillar.title}>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.body}</p>
+              </div>
+            ))}
+          </div>
 
-      <section className="band band--dark">
-        <div className="container">
-          <h2 className="section-title">{coaching.sustainable.title}</h2>
+          <h3 className="why__subtitle">{coaching.sustainable.title}</h3>
           {coaching.sustainable.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
@@ -48,24 +43,23 @@ export default function Coaching() {
       </section>
 
       <section className="band band--light">
-        <div className="container">
-          <h2 className="section-title">{coaching.about.title}</h2>
+        <div className="container about">
+          <h2 className="about__title">{coaching.about.title}</h2>
           {coaching.about.lead.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-          {coaching.about.sections.map((section) => (
-            <div className="subsection" key={section.title}>
-              <h3>{section.title}</h3>
+          {[...coaching.about.sections, coaching.about.closing].map((section) => (
+            <div className="about__section" key={section.title}>
+              <h3 className="about__heading">{section.title}</h3>
               <p>{section.body}</p>
             </div>
           ))}
-          <p className="subsection">{coaching.about.closing}</p>
         </div>
       </section>
 
       <section className="band band--dark">
         <div className="container">
-          <h2 className="section-title">Testimonials</h2>
+          <h2 className="testimonials__title">Testimonials</h2>
           <div className="testimonials">
             {testimonialGroups.map(([kind, items]) => (
               <div className="testimonial-group" key={kind}>

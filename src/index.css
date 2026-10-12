@@ -3,6 +3,7 @@
   --white: #fdfdfd;
   --plum-dark: #271b22; /* dark sections */
   --mist: #cac8cb; /* light grey sections */
+  --paper: #f3f5f4; /* slideshow section */
 
   --heading-on-dark: #dedbdf;
   --text-on-dark: #d3ccd1;
@@ -14,10 +15,12 @@
   --nav: #222;
   --nav-rule: #9b9b9b;
   --fine-print: #9a9a9a;
+  --quote-box: #857f83;
   --overlay: rgba(64, 58, 66, 0.62);
 
   --serif: 'Sorts Mill Goudy', Georgia, 'Times New Roman', serif;
   --sans: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; /* pull-quote */
 
   --container: min(76%, 1320px);
 }
@@ -275,6 +278,122 @@ textarea:focus-visible {
   align-items: start;
 }
 
+/* consultancy: "A brief introduction" slideshow */
+
+.slideshow {
+  background: var(--paper);
+}
+
+.slideshow__title {
+  color: var(--plum-accent);
+  font-size: 36px;
+  margin-bottom: 48px;
+}
+
+.slideshow__stage {
+  position: relative;
+  max-width: 1040px;
+  margin-inline: auto;
+  aspect-ratio: 1100 / 619;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.slideshow__stage:focus-visible {
+  outline-offset: 6px;
+}
+
+.slideshow__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.slideshow__slide.active {
+  opacity: 1;
+}
+
+.slideshow__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--plum-dark);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.slideshow__arrow:hover {
+  background: var(--plum-accent);
+  color: #fff;
+}
+
+.slideshow__arrow--prev {
+  left: 16px;
+}
+
+.slideshow__arrow--next {
+  right: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slideshow__slide {
+    transition: none;
+  }
+}
+
+.slideshow__count {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-on-light);
+  margin: 16px 0 24px;
+}
+
+.slideshow__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.slideshow__thumb {
+  width: 64px;
+  padding: 0;
+  border: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.slideshow__thumb:hover,
+.slideshow__thumb.active {
+  opacity: 1;
+}
+
+.slideshow__thumb.active {
+  border-color: var(--plum-accent);
+}
+
+.slideshow__thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
 @media (max-width: 760px) {
   .intro__title {
     font-size: 30px;
@@ -363,26 +482,61 @@ textarea:focus-visible {
 
 /* ---------------- subpages ---------------- */
 
-.lead {
-  font-size: 18px;
+/* coaching: "Why team coaching?" band */
+
+.why__title {
+  font-size: 36px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .pullquote {
-  margin: 0 auto;
-  max-width: 900px;
-  text-align: center;
+  margin: 0;
+  padding: 44px 64px 52px 76px;
+  background: var(--quote-box);
+  color: #111;
+  position: relative;
+}
+
+.pullquote::before {
+  content: '“';
+  position: absolute;
+  left: 26px;
+  top: 30px;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1;
+  color: #111;
 }
 
 .pullquote p {
-  font-family: var(--serif);
+  font-family: var(--display);
+  font-style: italic;
   font-size: 30px;
-  line-height: 1.35;
-  color: var(--heading-on-dark);
-  margin-bottom: 18px;
+  line-height: 1.7;
+  margin-bottom: 24px;
 }
 
 .pullquote footer {
+  font-family: var(--display);
   font-size: 15px;
+}
+
+.why__pillars {
+  margin-top: 36px;
+}
+
+.band--dark .why__pillars h3,
+.band--dark .why__subtitle {
+  color: var(--plum-accent);
+  text-align: center;
+}
+
+.why__subtitle {
+  font-size: 26px;
+  margin: 40px 0 16px;
 }
 
 .columns {
@@ -401,46 +555,104 @@ textarea:focus-visible {
   margin-bottom: 20px;
 }
 
-.subsection {
-  margin-top: 34px;
+/* coaching: about section on the light band */
+
+.band--light .about__title {
+  color: var(--plum-accent);
+  font-size: 30px;
+  margin-bottom: 24px;
 }
 
-.subsection h3 {
-  font-size: 26px;
-  margin-bottom: 10px;
+.about__section {
+  margin-top: 32px;
+}
+
+.band--light .about__heading {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text-on-light);
+}
+
+.about > :last-child p {
+  margin-bottom: 0;
 }
 
 .aside {
   font-style: italic;
 }
 
-.terms {
-  margin: 24px 0 0;
-  display: grid;
-  gap: 18px;
+/* consultancy: "How can I help?" band */
+
+.help__title {
+  font-size: 36px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
-.terms > div {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 24px;
+.band--dark .help__heading {
+  color: var(--plum-accent);
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  margin: 36px 0 12px;
 }
 
-.terms dt {
-  font-weight: 600;
+.help__intro {
+  margin-bottom: 8px;
 }
 
-.terms dd {
+.help__points {
   margin: 0;
+  padding-left: 56px;
+  display: grid;
+  gap: 8px;
+}
+
+.help__points li::marker {
+  color: var(--fine-print);
+}
+
+.help__points strong {
+  font-weight: 600;
+  color: var(--heading-on-dark);
+}
+
+.help > :last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 760px) {
-  .terms > div {
-    grid-template-columns: 1fr;
-    gap: 4px;
+  .help__points {
+    padding-left: 24px;
+  }
+  .slideshow__arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .slideshow__arrow--prev {
+    left: 8px;
+  }
+  .slideshow__arrow--next {
+    right: 8px;
+  }
+  .slideshow__thumb {
+    width: 48px;
+  }
+  .pullquote {
+    padding: 64px 24px 32px;
+  }
+  .pullquote::before {
+    left: 24px;
+    top: 16px;
   }
   .pullquote p {
-    font-size: 24px;
+    font-size: 22px;
+  }
+  .testimonials__title {
+    font-size: 36px;
+    margin-bottom: 40px;
   }
 }
 
@@ -455,15 +667,21 @@ textarea:focus-visible {
   margin: 0;
 }
 
+.testimonials__title {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 64px;
+}
+
 .testimonial-group .testimonial + .testimonial {
   margin-top: 36px;
 }
 
 .testimonial-group .testimonial__kind {
-  font-size: 30px;
+  font-size: 26px;
   text-align: center;
   text-transform: uppercase;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 .band--dark .testimonial-group .testimonial__kind {
@@ -475,10 +693,15 @@ textarea:focus-visible {
   font-weight: 300;
 }
 
+.testimonial-group .testimonial p:last-of-type {
+  margin-bottom: 0;
+}
+
 .testimonial-group .testimonial footer {
   margin-top: 4px;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 300;
+  opacity: 0.8;
 }
 
 .testimonial__kind {
