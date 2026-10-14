@@ -719,9 +719,46 @@ textarea:focus-visible {
   font-weight: 600;
 }
 
-.testimonial footer span {
+/* consultancy: client testimonials with logos */
+
+.client-quotes__title {
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 56px;
+}
+
+.band--dark .client-quotes__title {
+  color: var(--plum-accent);
+}
+
+.client-quote {
+  margin: 0;
+}
+
+.client-quote__logo {
   display: block;
-  font-weight: 300;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin: 0 auto 28px;
+}
+
+.client-quote p {
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.client-quote footer {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.client-quote footer a {
+  color: var(--plum-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 /* ---------------- contact form ---------------- */

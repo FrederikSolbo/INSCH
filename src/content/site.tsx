@@ -15,6 +15,11 @@ import portrait from '../assets/ingvill.jpeg'
 import coachingBanner from '../assets/coaching.png'
 import consultancyBanner from '../assets/consultancy.png'
 import norwayHouseBanner from '../assets/norwayhouse.png'
+import milestoneLogo from '../assets/logos/milestone.png'
+import danelecLogo from '../assets/logos/danelec.png'
+import sbwLogo from '../assets/logos/scandinavian-business-women.png'
+import sosLogo from '../assets/logos/security-on-screen.png'
+import dynamicsLogo from '../assets/logos/microsoft-dynamics-partner.png'
 import slide01 from '../assets/intro/slide-01.jpg'
 import slide02 from '../assets/intro/slide-02.jpg'
 import slide03 from '../assets/intro/slide-03.jpg'
@@ -223,8 +228,11 @@ export const coaching: {
 
 type ConsultancyTestimonial = {
   author: string
+  /** Links the author's name, for testimonials without a company link. */
+  authorHref?: string
   role: string
-  company: { name: string; href: string }
+  company?: { name: string; href: string }
+  logo: string
   quote: string
 }
 
@@ -293,14 +301,16 @@ export const consultancy: {
       author: 'Marlene Lyhne Sorensen',
       role: 'Communications Manager EMEA',
       company: { name: 'Milestone Systems', href: 'https://www.milestonesys.com' },
-      quote:
+      logo: milestoneLogo,
+    quote:
         'INSCH Aps has played an important role in growing Milestone’s brand in the ME region over the last five years. I’ve gotten to know Ingvill as a very kind, accountable, and structured person with a strong professionalism and dedication to deliver high-quality work. Her knowledge about the business and cultural aspects in the UAE, as well as her personality, have been valuable to the entire team and I have really appreciated our collaboration.',
     },
     {
       author: 'Hans Ottosen',
       role: 'CEO / Owner',
       company: { name: 'Danelec', href: 'https://www.danelec.com' },
-      quote:
+      logo: danelecLogo,
+    quote:
         'We hired Ingvill to help us re-define our branding values and transform these into a tangible communication platform. Ingvill did a great job in structuring our fluffy values into something really meaningful. We now have a strategic communication platform from which we can easily create our marketing messages, both content wise and visually.',
     },
     {
@@ -310,20 +320,23 @@ export const consultancy: {
         name: 'Scandinavian Business Women Dubai',
         href: 'https://www.linkedin.com/company/danish-business-women-dubai/',
       },
-      quote:
+      logo: sbwLogo,
+    quote:
         'Ingvill has a strong professional background, and she has improved the Council’s profile and image significantly through her years of service. I’ve always been impressed with her drive, tenacity, and professionalism at making us succeed in creating more awareness, powerful branding strategies, and established a strong professional network with key partners in UAE and Denmark.',
     },
     {
       author: 'Peter Mawson',
       role: 'Founder',
       company: { name: 'Security on Screen', href: 'https://securityonscreen.com' },
-      quote:
+      logo: sosLogo,
+    quote:
         "As a Publisher, I've had the opportunity to work with media agencies and PR professionals across the globe for some 25 years, but I have to say some people stand out from the crowd, and Ingvill does just that. With a commercial prowess that ensures all parties in a transaction win and a mind that takes communication and media relationship management to another level, Ingvill is a super-safe set of hands with gravitas and a deep understanding of her art. I've had the pleasure of working on numerous successful projects over the years with Ingvill and her team and I have no hesitation in highly recommending Ingvill as your global media and PR agency partner.",
     },
     {
       author: 'David Kahn',
-      role: 'Owner, Microsoft Dynamics Partner',
-      company: { name: 'LinkedIn', href: 'https://www.linkedin.com/in/davidkahn/' },
+      authorHref: 'https://www.linkedin.com/in/davidkahn/',
+      role: 'Owner Microsoft Dynamics AX, GP, SL, NAV and CRM Partner',
+      logo: dynamicsLogo,
       quote:
         'Customer testimonials play an important part in our sales process. Through Ingvill’s efforts, we now have a base of more than 100 international customer evidence stories and videos to choose from. She has helped transform the quality and reach of the customer evidence, by creating effective new communication vehicles. As a partner this is enabling us to compliment our company credibility with Microsoft product credibility, therefore furthering the likelihood of winning customers to the Microsoft platform. I respect Ingvill both as a valuable member of the Dynamics community and as a person of integrity with genuine interest in the success of those with whom she works.',
     },

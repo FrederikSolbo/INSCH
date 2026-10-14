@@ -34,25 +34,16 @@ export default function Consultancy() {
 
       <Slideshow title={consultancy.intro.title} slides={consultancy.intro.slides} />
 
+      <section className="band band--dark">
+        <div className="container">
+          <h2 className="client-quotes__title">Testimonials</h2>
+          <ClientQuotes items={consultancy.testimonials.slice(0, 3)} />
+        </div>
+      </section>
+
       <section className="band band--light">
         <div className="container">
-          <h2 className="section-title">Testimonials</h2>
-          <div className="testimonials">
-            {consultancy.testimonials.map((t) => (
-              <blockquote className="testimonial" key={t.author}>
-                <p>{t.quote}</p>
-                <footer>
-                  {t.author}
-                  <span>
-                    {t.role},{' '}
-                    <a href={t.company.href} target="_blank" rel="noreferrer">
-                      {t.company.name}
-                    </a>
-                  </span>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
+          <ClientQuotes items={consultancy.testimonials.slice(3)} />
         </div>
       </section>
 
@@ -63,5 +54,36 @@ export default function Consultancy() {
         intro="Interested in knowing more? Drop me a note on LinkedIn, by mail, or in the form below."
       />
     </>
+  )
+}
+
+function ClientQuotes({ items }: { items: typeof consultancy.testimonials }) {
+  return (
+    <div className="testimonials client-quotes">
+      {items.map((t) => (
+        <blockquote className="client-quote" key={t.author}>
+          <img className="client-quote__logo" src={t.logo} alt={t.company?.name ?? ''} />
+          <p>{t.quote}</p>
+          <footer>
+            {t.authorHref ? (
+              <a href={t.authorHref} target="_blank" rel="noreferrer">
+                {t.author}
+              </a>
+            ) : (
+              t.author
+            )}
+            , {t.role}
+            {t.company && (
+              <>
+                {' at '}
+                <a href={t.company.href} target="_blank" rel="noreferrer">
+                  {t.company.name}
+                </a>
+              </>
+            )}
+          </footer>
+        </blockquote>
+      ))}
+    </div>
   )
 }
