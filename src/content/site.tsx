@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 /**
- * All copy for the site lives here so pages stay presentational.
+ * All copy for the site lives here so the sections stay presentational.
  *
  * Images are imported, not referenced by string. A string like 'src/assets/x.png'
  * only resolves by accident in dev and breaks in production builds, because Vite
@@ -12,8 +12,6 @@ import heroHome from '../assets/hero-home.jpg'
 import heroCoaching from '../assets/hero-coaching.jpg'
 import heroConsultancy from '../assets/hero-consultancy.jpg'
 import portrait from '../assets/ingvill.jpeg'
-import coachingBanner from '../assets/coaching.png'
-import consultancyBanner from '../assets/consultancy.png'
 import norwayHouseBanner from '../assets/norwayhouse.png'
 import milestoneLogo from '../assets/logos/milestone.png'
 import danelecLogo from '../assets/logos/danelec.png'
@@ -40,7 +38,7 @@ export const site = {
   email: 'ingvill@insch.co',
   linkedin: 'https://www.linkedin.com/in/ingvillsolbochristiansen/',
   formspree: 'https://formspree.io/f/mppwokdw',
-  legal: 'INSCH Aps  CVR 38803778 © COPYRIGHT 2024. ALL RIGHTS RESERVED.',
+  legal: 'INSCH Aps  CVR 38803778 © COPYRIGHT 2024. ALL RIGHTS RESERVED.',
 } as const
 
 export const images = {
@@ -49,49 +47,54 @@ export const images = {
   hero: { home: heroHome, coaching: heroCoaching, consultancy: heroConsultancy },
 } as const
 
-export const nav = [
-  { to: '/', label: 'Welcome' },
-  { to: '/team-business-coaching', label: 'Team & Business Coaching' },
-  { to: '/business-consultancy', label: 'Business Consultancy' },
-] as const
+/** The sections of the page, in order. `id` is the anchor that links jump to. */
+export const sections = {
+  welcome: { id: 'welcome', title: 'About' },
+  coaching: { id: 'coaching', title: 'Team & Business Coaching' },
+  consultancy: { id: 'consultancy', title: 'Business Consultancy' },
+  contact: { id: 'contact', title: "Let's talk" },
+} as const
+
+/** Header links. Contact is the call-to-action button instead. */
+export const nav = [sections.welcome, sections.coaching, sections.consultancy]
 
 type Offering = {
   title: string
   body: string
   href: string
   image: string
+  /** object-position for the thumbnail crop */
+  focus?: string
   external: boolean
 }
 
 export const home: {
   title: string
-  subtitle: string
   intro: string[]
+  offeringsIntro: string
   offerings: Offering[]
 } = {
-  title: 'Team & Business Coaching',
-  subtitle:
-    'I coach individuals, teams and businesses to succeed in diverse and cross cultural environments',
+  title: 'Welcome',
   intro: [
     'My name is Ingvill Solbø Christiansen, founder of INSCH Aps.',
     'With years of international business experience and a solid academic background, I specialize in coaching individuals and teams to succeed in diverse and cross-cultural environments.',
     "A Master's in International Marketing from CBS, advanced studies in NLP, Team Coaching, and Leadership, combined with hands-on international experience, enable me to guide you and your teams to develop clear, purpose-driven strategies that align with your business goals.",
     'One of the most meaningful experiences in my career was leading the Norway House Aid Project in Cambodia, which improved education and living conditions for underprivileged children. This project underscored the importance of teamwork, particularly in environments where cultural understanding and collaboration are key.',
-    'Read more about my offerings on the pages below:',
   ],
+  offeringsIntro: 'Read more about my offerings below:',
   offerings: [
     {
       title: 'Team & Business Coaching',
       body: 'I am passionate about empowering individuals and teams to achieve desired results, especially in multicultural settings. My coaching programs focus on developing purpose-driven strategies that align with your vision, enhancing collaboration, and achieving collective success.',
-      href: '/team-business-coaching',
-      image: coachingBanner,
+      href: `#${sections.coaching.id}`,
+      image: heroCoaching,
       external: false,
     },
     {
       title: 'Business Consultancy',
       body: 'With extensive experience in international marketing and communication, I assist companies in developing strategies tailored to meet their business goals.',
-      href: '/business-consultancy',
-      image: consultancyBanner,
+      href: `#${sections.consultancy.id}`,
+      image: heroConsultancy,
       external: false,
     },
     {
@@ -99,6 +102,7 @@ export const home: {
       body: 'Norway House Cambodia is a private aid initiative that works to help the children of Cambodia achieve a better future through education.',
       href: 'http://norwayhouse.weebly.com/in-english.html',
       image: norwayHouseBanner,
+      focus: '22% 50%',
       external: true,
     },
   ],
@@ -237,12 +241,14 @@ type ConsultancyTestimonial = {
 }
 
 export const consultancy: {
+  help: string
   lead: string
   intro: { title: string; slides: { src: string; alt: string }[] }
   services: { title: string; body: string }[]
   strategy: { title: string; intro: string; points: { term: string; body: string }[] }
   testimonials: ConsultancyTestimonial[]
 } = {
+  help: 'How can I help?',
   lead: 'With a broad background in marketing and communication in international businesses, I help companies develop effective marketing strategies to achieve their business objectives. You may not have the budget for a full-time marketing or communication professional, but you understand that effective communication and marketing is essential for business growth. I offer flexible solutions to help your business succeed.',
   intro: {
     title: 'A brief introduction',
@@ -302,7 +308,7 @@ export const consultancy: {
       role: 'Communications Manager EMEA',
       company: { name: 'Milestone Systems', href: 'https://www.milestonesys.com' },
       logo: milestoneLogo,
-    quote:
+      quote:
         'INSCH Aps has played an important role in growing Milestone’s brand in the ME region over the last five years. I’ve gotten to know Ingvill as a very kind, accountable, and structured person with a strong professionalism and dedication to deliver high-quality work. Her knowledge about the business and cultural aspects in the UAE, as well as her personality, have been valuable to the entire team and I have really appreciated our collaboration.',
     },
     {
@@ -310,7 +316,7 @@ export const consultancy: {
       role: 'CEO / Owner',
       company: { name: 'Danelec', href: 'https://www.danelec.com' },
       logo: danelecLogo,
-    quote:
+      quote:
         'We hired Ingvill to help us re-define our branding values and transform these into a tangible communication platform. Ingvill did a great job in structuring our fluffy values into something really meaningful. We now have a strategic communication platform from which we can easily create our marketing messages, both content wise and visually.',
     },
     {
@@ -321,7 +327,7 @@ export const consultancy: {
         href: 'https://www.linkedin.com/company/danish-business-women-dubai/',
       },
       logo: sbwLogo,
-    quote:
+      quote:
         'Ingvill has a strong professional background, and she has improved the Council’s profile and image significantly through her years of service. I’ve always been impressed with her drive, tenacity, and professionalism at making us succeed in creating more awareness, powerful branding strategies, and established a strong professional network with key partners in UAE and Denmark.',
     },
     {
@@ -329,7 +335,7 @@ export const consultancy: {
       role: 'Founder',
       company: { name: 'Security on Screen', href: 'https://securityonscreen.com' },
       logo: sosLogo,
-    quote:
+      quote:
         "As a Publisher, I've had the opportunity to work with media agencies and PR professionals across the globe for some 25 years, but I have to say some people stand out from the crowd, and Ingvill does just that. With a commercial prowess that ensures all parties in a transaction win and a mind that takes communication and media relationship management to another level, Ingvill is a super-safe set of hands with gravitas and a deep understanding of her art. I've had the pleasure of working on numerous successful projects over the years with Ingvill and her team and I have no hesitation in highly recommending Ingvill as your global media and PR agency partner.",
     },
     {
@@ -342,3 +348,8 @@ export const consultancy: {
     },
   ],
 }
+
+export const contact = {
+  lead: 'Interested in knowing more?',
+  body: "Please feel free to reach out for a conversation about unlocking your or your team's full potential. Drop me a note on LinkedIn, by mail, or using the form.",
+} as const

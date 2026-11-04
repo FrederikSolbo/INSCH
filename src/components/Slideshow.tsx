@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Arrow } from './Icons'
 
 type Props = {
   title: string
@@ -11,49 +12,51 @@ export function Slideshow({ title, slides }: Props) {
   const go = (next: number) => setIndex((next + slides.length) % slides.length)
 
   return (
-    <section className="band slideshow" aria-roledescription="carousel" aria-label={title}>
-      <div className="container">
-        <h2 className="slideshow__title">{title}</h2>
+    <div className="block slideshow" role="region" aria-roledescription="carousel" aria-label={title}>
+      <h3 className="subhead">{title}</h3>
 
-        <div
-          className="slideshow__stage"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'ArrowLeft') go(index - 1)
-            if (e.key === 'ArrowRight') go(index + 1)
-          }}
+      <div
+        className="slideshow__stage"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowLeft') go(index - 1)
+          if (e.key === 'ArrowRight') go(index + 1)
+        }}
+      >
+        {slides.map((s, i) => (
+          <img
+            key={s.src}
+            className={i === index ? 'slideshow__slide active' : 'slideshow__slide'}
+            src={s.src}
+            alt={i === index ? s.alt : ''}
+            aria-hidden={i !== index}
+            width={1100}
+            height={619}
+            loading="lazy"
+          />
+        ))}
+        <button
+          type="button"
+          className="slideshow__arrow slideshow__arrow--prev"
+          onClick={() => go(index - 1)}
+          aria-label="Previous slide"
         >
-          {slides.map((s, i) => (
-            <img
-              key={s.src}
-              className={i === index ? 'slideshow__slide active' : 'slideshow__slide'}
-              src={s.src}
-              alt={i === index ? s.alt : ''}
-              aria-hidden={i !== index}
-            />
-          ))}
-          <button
-            type="button"
-            className="slideshow__arrow slideshow__arrow--prev"
-            onClick={() => go(index - 1)}
-            aria-label="Previous slide"
-          >
-            <Chevron direction="left" />
-          </button>
-          <button
-            type="button"
-            className="slideshow__arrow slideshow__arrow--next"
-            onClick={() => go(index + 1)}
-            aria-label="Next slide"
-          >
-            <Chevron direction="right" />
-          </button>
-        </div>
+          <Arrow direction="left" />
+        </button>
+        <button
+          type="button"
+          className="slideshow__arrow slideshow__arrow--next"
+          onClick={() => go(index + 1)}
+          aria-label="Next slide"
+        >
+          <Arrow direction="right" />
+        </button>
+      </div>
 
+      <div className="slideshow__bar">
         <p className="slideshow__count">
           {index + 1} / {slides.length}
         </p>
-
         <div className="slideshow__thumbs">
           {slides.map((s, i) => (
             <button
@@ -64,29 +67,11 @@ export function Slideshow({ title, slides }: Props) {
               aria-label={`Slide ${i + 1}: ${s.alt}`}
               aria-current={i === index}
             >
-              <img src={s.src} alt="" loading="lazy" />
+              <img src={s.src} alt="" width={1100} height={619} loading="lazy" />
             </button>
           ))}
         </div>
       </div>
-    </section>
-  )
-}
-
-function Chevron({ direction }: { direction: 'left' | 'right' }) {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d={direction === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'} />
-    </svg>
+    </div>
   )
 }
