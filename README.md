@@ -37,7 +37,8 @@ with `Accept: application/json`, so visitors stay on the page and see a success 
 ## Routing on deploy
 
 `BrowserRouter` needs unknown paths rewritten to `index.html`.
-Netlify: add `public/_redirects` containing `/* /index.html 200`. Vercel works out of the box.
+Vercel: handled by the `rewrites` rule in `vercel.json`. Netlify: add `public/_redirects`
+containing `/* /index.html 200`.
 The old Weebly URLs `/wwwinschco.html` and `/business-consultancy.html` redirect to the new ones.
 
 ## Content
